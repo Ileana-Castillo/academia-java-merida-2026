@@ -21,40 +21,44 @@ public class SimpleStack<T> implements Iterable<T> {
 
     public void push(T item) {
         // TODO: crear nuevo nodo que apunte al top actual
-    	top = New Node()
         // TODO: actualizar top y size
+    	top = new Node<>(item, top);
+        size++;
     }
 
     public T pop() {
         // TODO: si esta vacio lanzar NoSuchElementException
-    	if (data == null) throw new NoSuchElementException();
         // TODO: guardar dato del top, avanzar top, decrementar size
-        return ___;
+    	if (isEmpty()) throw new NoSuchElementException("Stack vacio");
+        T data = top.data;
+        top = top.next;
+        size--;
+        return data;
     }
 
     public T peek() {
         if (isEmpty()) throw new NoSuchElementException("Stack vacio");
-        return ___;
+        return top.data;
     }
 
-    public boolean isEmpty() { return ___; }
-    public int size() { return ___; }
+    public boolean isEmpty() { return size == 0; }
+    public int size() { return size; }
 
     // Inner class: necesita acceso al top del stack externo
     private class StackIterator implements Iterator<T> {
-        private Node<T> current = ___;  // TODO: iniciar en top
+        private Node<T> current = top;  // TODO: iniciar en top
 
         @Override
         public boolean hasNext() {
-            return ___;
+            return current != null;
         }
 
         @Override
         public T next() {
             if (!hasNext()) throw new NoSuchElementException();
             // TODO: guardar dato, avanzar current, retornar dato
-            T data = ___;
-            current = ___;
+            T data = current.data;
+            current = current.next;
             return data;
         }
     }
